@@ -1,0 +1,17 @@
+{
+  "default": {
+    "formatOptions": {
+      "snippetInterface": "synchronous"
+    },
+    "paths": [
+      "e2e/features/"
+    ],
+    "require": [
+      "e2e/hooks/*.js",
+      "e2e/steps/*.js"
+    ],
+    "format": [
+      "json:e2e/report/cucumber_report.json"
+    ]
+  }
+}

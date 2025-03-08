@@ -1,0 +1,84 @@
+[
+  {
+    "description": "    Como usuário do sistema XPTO\n    Eu quero criar um novo treino\n    Para que eu possa visualizar meus treinos",
+    "elements": [
+      {
+        "description": "",
+        "id": "login-com-sucesso-na-amazom;exibir-página-de-login",
+        "keyword": "Scenario",
+        "line": 7,
+        "name": "Exibir página de login",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 14823844600
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 8,
+            "name": "Clicar na opcao settings",
+            "match": {
+              "location": "e2e\\steps\\stepdefs.js:3"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1434041099
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 9,
+            "name": "Clicar na opcao bateria",
+            "match": {
+              "location": "e2e\\steps\\stepdefs.js:8"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 6767134699
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 10,
+            "name": "Deve visualizar a opcao da bateria",
+            "match": {
+              "location": "e2e\\steps\\stepdefs.js:14"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 64913400
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 562600
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@positive",
+            "line": 6
+          }
+        ],
+        "type": "scenario"
+      }
+    ],
+    "id": "login-com-sucesso-na-amazom",
+    "line": 1,
+    "keyword": "Feature",
+    "name": "Login com sucesso na amazom",
+    "tags": [],
+    "uri": "e2e\\features\\AbrirBateria.feature"
+  }
+]
