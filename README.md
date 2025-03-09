@@ -1,6 +1,6 @@
 # Testes Automatizados Mobile com Cucumber, Appium e JavaScript
 
-Este repositório contém um conjunto de testes automatizados para aplicações mobile utilizando Cucumber, Appium e JavaScript.
+Este repositório contém um conjunto de testes automatizados para aplicações mobile utilizando Cucumber, Appium, JavaScript e um status report ao final.
 
 ## Requisitos
 
