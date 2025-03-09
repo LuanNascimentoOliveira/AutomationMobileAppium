@@ -1,59 +1,50 @@
 [
   {
-    "description": "    Como usuário do sistema XPTO\n    Eu quero criar um novo treino\n    Para que eu possa visualizar meus treinos",
+    "description": "    Como usuário do sistema android\n    Eu quero acessar a opção da bateria\n    Para que eu possa visualizar o desempenho da bateria",
     "elements": [
       {
         "description": "",
-        "id": "login-com-sucesso-na-amazom;exibir-página-de-login",
+        "id": "visualizar-bateria;exibir-bateria-do-android",
         "keyword": "Scenario",
         "line": 7,
-        "name": "Exibir página de login",
+        "name": "Exibir bateria do android",
         "steps": [
           {
             "keyword": "Before",
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 14823844600
+              "duration": 6895600000
             }
           },
           {
             "arguments": [],
             "keyword": "When ",
             "line": 8,
-            "name": "Clicar na opcao settings",
-            "match": {
-              "location": "e2e\\steps\\stepdefs.js:3"
-            },
+            "name": "Clicar na opção settings",
             "result": {
-              "status": "passed",
-              "duration": 1434041099
+              "status": "undefined",
+              "duration": 0
             }
           },
           {
             "arguments": [],
             "keyword": "And ",
             "line": 9,
-            "name": "Clicar na opcao bateria",
-            "match": {
-              "location": "e2e\\steps\\stepdefs.js:8"
-            },
+            "name": "Clicar na opção bateria",
             "result": {
-              "status": "passed",
-              "duration": 6767134699
+              "status": "undefined",
+              "duration": 0
             }
           },
           {
             "arguments": [],
             "keyword": "Then ",
             "line": 10,
-            "name": "Deve visualizar a opcao da bateria",
-            "match": {
-              "location": "e2e\\steps\\stepdefs.js:14"
-            },
+            "name": "Deve visualizar a opção da bateria",
             "result": {
-              "status": "passed",
-              "duration": 64913400
+              "status": "undefined",
+              "duration": 0
             }
           },
           {
@@ -61,7 +52,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 562600
+              "duration": 372299
             }
           }
         ],
@@ -74,10 +65,10 @@
         "type": "scenario"
       }
     ],
-    "id": "login-com-sucesso-na-amazom",
+    "id": "visualizar-bateria",
     "line": 1,
     "keyword": "Feature",
-    "name": "Login com sucesso na amazom",
+    "name": "Visualizar bateria",
     "tags": [],
     "uri": "e2e\\features\\AbrirBateria.feature"
   }

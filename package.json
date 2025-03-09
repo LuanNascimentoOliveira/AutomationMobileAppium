@@ -3,12 +3,20 @@
   "version": "1.0.0",
   "description": "",
   "keywords": [],
+  "homepage": "https://github.com/LuanNascimentoOliveira/AutomationMobileAppium#readme",
+  "bugs": {
+    "url": "https://github.com/LuanNascimentoOliveira/AutomationMobileAppium/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LuanNascimentoOliveira/AutomationMobileAppium.git"
+  },
   "license": "ISC",
   "author": "",
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
-    "start": "cucumber-js --config e2e/cucumber.json",
+    "start": "cucumber-js",
     "report": "node e2e/support/register-report.js",
     "test": "npm run start && npm run report"
   },
