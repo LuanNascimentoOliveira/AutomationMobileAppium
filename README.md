@@ -262,7 +262,7 @@ var options = {
 generate(options);
 ```
 
-Obs:  Observe que para executar os arquivo todos foram adicinado ao cucumber.json
+Obs:  Observe que para executar os arquivos todos foram adicinados ao cucumber.json
 
 ## Estrutura do Projeto
 ```bash
