@@ -4,12 +4,12 @@ Este repositório contém um conjunto de testes automatizados para aplicações 
 
 
 ## Sumário
-[Requisitos](#requisitos)
-[Estrutura do Projeto](#estrutura-do-projeto)
-[Instalação](#instalação)
-[Cucumber-JS](#cucumber-js)
-[Conectar a um emulador](#conectar-a-um-emulador)
-[Status Reports](#status-reports)
+[Requisitos](#requisitos)\
+[Estrutura do Projeto](#estrutura-do-projeto)\
+[Instalação](#instalação)\
+[Cucumber-JS](#cucumber-js)\
+[Conectar a um emulador](#conectar-a-um-emulador)\
+[Status Reports](#status-reports)\
 
 ## Requisitos
 
@@ -218,8 +218,8 @@ Then('Deve visualizar a opção da bateria', async function () {
 
 
 ### Conectar a um emulador
-**Obs 1**: Para esse projeto eu criei hooks e support para iniciar o emulador e carregar todos os drivers antes dos testes para conseguir capturar os elementos do xml da app. 
-**Obs 2**: Se desejar saber quais aparelhos que estão conectados consulte [AQUI](https://developer.android.com/tools/adb), será necessário adicionar um aparelho as caps. 
+**Obs 1**: Para esse projeto eu criei hooks e support para iniciar o emulador e carregar todos os drivers antes dos testes para conseguir capturar os elementos do xml da app.\
+**Obs 2**: Se desejar saber quais aparelhos que estão conectados consulte [AQUI](https://developer.android.com/tools/adb), será necessário adicionar um aparelho as caps.\ 
 **Obs 3**: Pode ser configurado para carregar vários aparelhos, no meu caso coloquei só Android no momento.
 
 ```bash
