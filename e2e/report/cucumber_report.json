@@ -1,56 +1,52 @@
 [
   {
-    "description": "    Como usuário do sistema android\n    Eu quero acessar a opção da bateria\n    Para que eu possa visualizar o desempenho da bateria",
+    "description": "    Como usuário do sistema Android\n    Eu quero acessar a opção da bateria\n    Para que eu possa visualizar o desempenho da bateria",
     "elements": [
       {
         "description": "",
         "id": "visualizar-bateria;exibir-bateria-do-android",
-        "keyword": "Scenario",
-        "line": 7,
-        "name": "Exibir bateria do android",
+        "keyword": "Scenario Outline",
+        "line": 16,
+        "name": "Exibir bateria do Android",
         "steps": [
           {
             "keyword": "Before",
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 5341904399
+              "duration": 6429668599
             }
           },
           {
             "arguments": [],
             "keyword": "When ",
-            "line": 8,
-            "name": "Clicar na opção settings",
-            "match": {
-              "location": "e2e\\features\\steps\\stepdefs.js:3"
-            },
+            "line": 10,
+            "name": "Clicar na opção settings do android \"emulator-5554\"",
             "result": {
-              "status": "passed",
-              "duration": 789395300
+              "status": "ambiguous",
+              "duration": 0
             }
           },
           {
             "arguments": [],
             "keyword": "And ",
-            "line": 9,
+            "line": 11,
             "name": "Clicar na opção bateria",
             "match": {
-              "location": "e2e\\features\\steps\\stepdefs.js:8"
+              "location": "e2e\\features\\steps\\stepdefs.js:23"
             },
             "result": {
-              "status": "failed",
-              "duration": 5236863399,
-              "error_message": "Error: Can't call click on element with selector \"~Bateria e desempenho\" because element wasn't found\n    at implicitWait (file:///C:/Users/luann/Documents/Project%20Software/AutomationMobileAppium/node_modules/webdriverio/build/node.js:540:13)\n    at runNextTicks (node:internal/process/task_queues:65:5)\n    at process.processTimers (node:internal/timers:546:9)\n    at async Element.elementErrorHandlerCallbackFn (file:///C:/Users/luann/Documents/Project%20Software/AutomationMobileAppium/node_modules/webdriverio/build/node.js:8273:23)\n    at async Element.wrapCommandFn (file:///C:/Users/luann/Documents/Project%20Software/AutomationMobileAppium/node_modules/@wdio/utils/build/index.js:893:23)\n    at async World.<anonymous> (C:\\Users\\luann\\Documents\\Project Software\\AutomationMobileAppium\\e2e\\features\\steps\\stepdefs.js:10:5)"
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
             "arguments": [],
             "keyword": "Then ",
-            "line": 10,
+            "line": 12,
             "name": "Deve visualizar a opção da bateria",
             "match": {
-              "location": "e2e\\features\\steps\\stepdefs.js:13"
+              "location": "e2e\\features\\steps\\stepdefs.js:28"
             },
             "result": {
               "status": "skipped",
@@ -62,14 +58,82 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 200300
+              "duration": 668227799
             }
           }
         ],
         "tags": [
           {
             "name": "@positive",
-            "line": 6
+            "line": 8
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "visualizar-bateria;exibir-bateria-do-android",
+        "keyword": "Scenario Outline",
+        "line": 17,
+        "name": "Exibir bateria do Android",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 6772978299
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 10,
+            "name": "Clicar na opção settings do android \"1aeb9a65\"",
+            "result": {
+              "status": "ambiguous",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 11,
+            "name": "Clicar na opção bateria",
+            "match": {
+              "location": "e2e\\features\\steps\\stepdefs.js:23"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 12,
+            "name": "Deve visualizar a opção da bateria",
+            "match": {
+              "location": "e2e\\features\\steps\\stepdefs.js:28"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 612491900
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@positive",
+            "line": 8
           }
         ],
         "type": "scenario"
