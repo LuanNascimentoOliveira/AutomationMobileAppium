@@ -14,7 +14,7 @@ Before(async function () {
             platformName: 'Android',
             "appium:automationName": "UiAutomator2",
             "appium:deviceName": "Android",
-            "appium:udid": "emulator-5554",
+            "appium:udid": "1aeb9a65",
             "appium:newCommandTimeout": 90,
             "appium:connectHardwareKeyboard": true,
             "appium:enablePerformanceLogging": true,
@@ -23,8 +23,7 @@ Before(async function () {
         }
     };
 
-    this.driver = await remote(options);
-    
+    this.driver = await remote(options);    
 });
 
 After(async function () {

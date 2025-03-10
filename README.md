@@ -16,6 +16,35 @@ Antes de iniciar a configuração, certifique-se de ter os seguintes requisitos 
 - [Cucumber-Js](https://cucumber.io/docs/installation/javascript)
 - [Status report](https://www.npmjs.com/package/cucumber-html-reporter)
 
+
+## Estrutura do Projeto
+```bash
+.
+├── apps/                      # Aplicativos para teste
+│   ├── android-app.apk        # APK do aplicativo Android
+│   ├── ios-app.app            # Aplicativo iOS
+│
+├── features/                  # Arquivos de features do Cucumber
+│   ├── stepdefs.feature       # Exemplo de feature
+│   ├── steps/                 # Definições de steps do Cucumber
+│   │   ├── stepdefs.js        # Passos das features
+│
+├── hooks/                     # Hooks específicos do projeto
+│   ├── hooks.js               # Hooks globais do Cucumber
+│
+├── reports/                   # Relatórios de execução dos testes
+│
+├── support/                   # Suporte e configurações adicionais
+│   ├── register-report.js     # Configuração status report
+│   ├── global.d.ts            # Configuração global
+│
+├── cucumber.json              # Configuração do Cucumber
+├── package.json               # Dependências e scripts
+├── README.md                  # Documentação
+```
+
+**Obs**:  Para executar projeto foi necessario adicionar os comandos principais no ``cucumber.json`` mas pode ser adicionado no ``package.json``.
+
 ## Instalação
 
 ### Clone o repositório:
@@ -131,7 +160,7 @@ Verifique o teste
 ```bash
 npm test
 ```
-No console deve apresentar algo como 
+No console deve apresentar algo como :
 ```
 ? When Clicar na opção settings
        Undefined. Implement with the following snippet:
@@ -157,7 +186,7 @@ No console deve apresentar algo como
            return 'pending';
          });
 ```
-Isso significa que o arquivo `stepdefs.js` não possui as funções acima, portanto, copia as funções  e adicione ao aquivo, ficando algo como.
+Isso significa que o arquivo `stepdefs.js` não possui as funções acima, portanto, copia as funções  e adicione ao aquivo, ficando algo como:
 ```
 const { When, Then } = require('@cucumber/cucumber');
 
@@ -180,9 +209,9 @@ Then('Deve visualizar a opção da bateria', async function () {
 
 
 ### Conectar a um emulador
-Obs 1: Para esse projeto eu criei hooks e support para iniciar os emulador e carregar todos os drivers antes dos testes para conseguir capturar so elementos do xml do aparelho. 
-Obs 2: Se desejar saber os aparelhos que estão conectados consulte [AQUI](https://developer.android.com/tools/adb), pois será necessário adicionar um aparelho as caps. 
-Obs 3: Pode ser configurado para carregar vários aparelhos, no meu caso coloquei só Android no momento.
+**Obs 1**: Para esse projeto eu criei hooks e support para iniciar o emulador e carregar todos os drivers antes dos testes para conseguir capturar os elementos do xml da app. 
+**Obs 2**: Se desejar saber quais aparelhos que estão conectados consulte [AQUI](https://developer.android.com/tools/adb), será necessário adicionar um aparelho as caps. 
+**Obs 3**: Pode ser configurado para carregar vários aparelhos, no meu caso coloquei só Android no momento.
 
 ```bash
 adb devices
@@ -262,33 +291,7 @@ var options = {
 generate(options);
 ```
 
-Obs:  Observe que para executar os arquivos todos foram adicinados ao cucumber.json
 
-## Estrutura do Projeto
-```bash
-.
-├── apps/                      # Aplicativos para teste
-│   ├── android-app.apk        # APK do aplicativo Android
-│   ├── ios-app.app            # Aplicativo iOS
-│
-├── features/                  # Arquivos de features do Cucumber
-│   ├── stepdefs.feature       # Exemplo de feature
-│   ├── steps/                 # Definições de steps do Cucumber
-│   │   ├── stepdefs.js        # Passos das features
-│
-├── hooks/                     # Hooks específicos do projeto
-│   ├── hooks.js               # Hooks globais do Cucumber
-│
-├── reports/                   # Relatórios de execução dos testes
-│
-├── support/                   # Suporte e configurações adicionais
-│   ├── register-report.js     # Configuração status report
-│   ├── global.d.ts            # Configuração global
-│
-├── cucumber.json              # Configuração do Cucumber
-├── package.json               # Dependências e scripts
-├── README.md                  # Documentação
-```
 
 
 

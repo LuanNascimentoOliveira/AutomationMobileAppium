@@ -1,14 +1,13 @@
 const { When, Then } = require('@cucumber/cucumber');
 
 When('Clicar na opção settings', async function () {
-    const settings = await this.driver.$('//*[@text="Settings"]');
+    const settings = await this.driver.$('~Configurações');
     await settings.click();
 });
 
 When('Clicar na opção bateria', async function () {
-    const batteryItem = await this.driver.$('//*[@text="Battery"]');
+    const batteryItem = await this.driver.$('~Bateria e desempenho');
     await batteryItem.click();
-    await batteryItem.takeScreenshot();
 });
 
 Then('Deve visualizar a opção da bateria', async function () {

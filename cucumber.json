@@ -8,7 +8,7 @@
     ],
     "require": [
       "e2e/hooks/*.js",
-      "e2e/steps/*.js"
+      "e2e/features/steps/*.js"
     ],
     "format": [
       "json:e2e/report/cucumber_report.json"
