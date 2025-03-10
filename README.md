@@ -9,7 +9,7 @@ Este repositório contém um conjunto de testes automatizados para aplicações 
 [Instalação](#instalação)\
 [Cucumber-JS](#cucumber-js)\
 [Conectar a um emulador](#conectar-a-um-emulador)\
-[Status Reports](#status-reports)\
+[Status Reports](#status-reports)
 
 ## Requisitos
 
