@@ -2,6 +2,15 @@
 
 Este repositório contém um conjunto de testes automatizados para aplicações mobile utilizando Cucumber, Appium, JavaScript e um status report ao final.
 
+
+## Sumário
+[Requisitos](#requisitos)
+[Estrutura do Projeto](#estrutura-do-projeto)
+[Instalação](#instalação)
+[Cucumber-JS](#cucumber-js)
+[Conectar a um emulador](#conectar-a-um-emulador)
+[Status Reports](#status-reports)
+
 ## Requisitos
 
 Antes de iniciar a configuração, certifique-se de ter os seguintes requisitos instalados:
@@ -264,10 +273,25 @@ declare module "@cucumber/cucumber" {
     }
 }
 ```
+## Status Reports
+### cucumber-html-reporter
 
-e por fim, crie o arquivo ``register-report.js``, esse arquivo irá converter os resultado do ``cucumber_report.json`` em html, gerando status report dos testes em formato gráficos. 
-
+Instale o cucumber report com o comando:
+```bash
+npm install cucumber-html-reporter --save-dev
 ```
+
+Crie o arquivo ``register-report.js``, esse arquivo irá converter os resultados do ``cucumber_report.json`` em html, gerando status report dos testes em formato de gráficos. 
+**Obs**: Em ``jsonFile`` informe o path do arquivo json gerado pelo cucumber. e o output o mesmo path para gerar o html.
+
+No cucumber.json adicione o seguinte path:
+
+```cucumber.json
+"format": [
+  "json:e2e/report/cucumber_report.json"
+]
+```
+```register-report.js
 const { generate } = require("cucumber-html-reporter");
 
 var options = {
@@ -291,6 +315,20 @@ var options = {
 generate(options);
 ```
 
+Agora para gerar o report é necessário executar o seguinte comando com o endereço do register-report.js:
+
+```
+node e2e/support/register-report.js
+```
+ou adicione ao ``package.json`` aos demais comandos em scripts ficando algo como :
+
+```package.json
+"scripts": {
+    "start": "cucumber-js",
+    "report": "node e2e/support/register-report.js",
+    "test": "npm run start && npm run report"
+}
+```
 
 
 
