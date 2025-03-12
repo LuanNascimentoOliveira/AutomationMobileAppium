@@ -1,58 +1,51 @@
 # Testes Automatizados Mobile com Cucumber, Appium e JavaScript
 
-Este repositório contém um conjunto de testes automatizados para aplicações mobile utilizando Cucumber, Appium, JavaScript e um status report ao final.
+Este repositório contém um conjunto de testes automatizados para aplicações mobile utilizando Cucumber, Appium, JavaScript Webdriverio e wdio e o allure como status report.
 
 
 ## Sumário
 [Requisitos](#requisitos)\
 [Estrutura do Projeto](#estrutura-do-projeto)\
 [Instalação](#instalação)\
-[Cucumber-JS](#cucumber-js)\
-[Conectar a um emulador](#conectar-a-um-emulador)\
-[Status Reports](#status-reports)
+
+
+## Introdução.
+[Cucumber](https://cucumber.io/)\
+[Gherkin](https://docs.behat.org/en/v2.5/guides/1.gherkin.html)\
+[wdio](https://webdriver.io/docs/gettingstarted)\
+[JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript)\
 
 ## Requisitos
 
 Antes de iniciar a configuração, certifique-se de ter os seguintes requisitos instalados:
 
 - [Node.js](https://nodejs.org/en) (versão 14 ou superior)
-- [Appium](https://appium.io/docs/en/latest/quickstart/) (servidor)
-- [Appium](https://github.com/appium/appium-inspector/releases)(inspector)
 - [Java JDK](https://openjdk.org/install/) (versão 8 ou superior)
-- [Android](https://developer.android.com/studio) (para testes em dispositivos Android e adicionar sdk)
-- [UiAutomator2 Driver](https://appium.io/docs/en/2.0/quickstart/uiauto2-driver/)
-- Um dispositivo físico ou emulador configurado
-- [Cucumber-Js](https://cucumber.io/docs/installation/javascript)
-- [Status report](https://www.npmjs.com/package/cucumber-html-reporter)
+- [Android studio](https://developer.android.com/studio) (para testes em dispositivos Android e adicionar sdk)
 
 
 ## Estrutura do Projeto
 ```bash
-.
+.e2e
 ├── apps/                      # Aplicativos para teste
 │   ├── android-app.apk        # APK do aplicativo Android
 │   ├── ios-app.app            # Aplicativo iOS
 │
 ├── features/                  # Arquivos de features do Cucumber
 │   ├── stepdefs.feature       # Exemplo de feature
-│   ├── steps/                 # Definições de steps do Cucumber
+│   │── pageobjects            # Padrão de projeto
+│   │   ├── stepdefs.page.js   # Passos das features
+│   ├── step-definitions/      # Definições de steps do Cucumber
 │   │   ├── stepdefs.js        # Passos das features
 │
-├── hooks/                     # Hooks específicos do projeto
-│   ├── hooks.js               # Hooks globais do Cucumber
+├── allure-reports/            # Status reports
+│   
+├── allure-results/            # Resultados do status reports
 │
-├── reports/                   # Relatórios de execução dos testes
-│
-├── support/                   # Suporte e configurações adicionais
-│   ├── register-report.js     # Configuração status report
-│   ├── global.d.ts            # Configuração global
-│
-├── cucumber.json              # Configuração do Cucumber
+├── wdio.conf.js               # Configuração do wdio
 ├── package.json               # Dependências e scripts
 ├── README.md                  # Documentação
 ```
-
-**Obs**:  Para executar projeto foi necessario adicionar os comandos principais no ``cucumber.json`` mas pode ser adicionado no ``package.json``.
 
 ## Instalação
 
@@ -62,277 +55,359 @@ Antes de iniciar a configuração, certifique-se de ter os seguintes requisitos 
 git clone https://github.com/seu-usuario/seu-repositorio.git
 cd seu-repositorio
 ```
-## NPM 
-### inicie o npm:
+
+### Inicie o wdio:
 ```bash
-npm init
-```
-### Instale as dependências do projeto:
-```bash
-npm install
-```
-## Appium
-Obs: Execute todos os comandos no cmd, não precisa ser no projeto.
-### Instale o Appium globalmente:
-```bash
-npm install -g appium
-```
-### Instale os drivers necessários para o Appium:
-```bash
-appium driver install uiautomator2
+npx create-wdio@latest ./e2e
 ou
-appium setup
+npm init wdio@latest ./e2e
 ```
-### Verique se os driver está tudo ok. :
-```bash
-appium driver doctor uiautomator2
-```
-### Executar o Appium Server :
-```bash
-appium
-```
+Instale as dependências do projeto conforme a necessidade, para utilizar o cucumber, appium ou demais aplicações é necessário selecionar nas etapas, e caso não use ts e só marcar como não.
 
-## Cucumber-JS
+Mais informações em [wdio](https://webdriver.io/docs/gettingstarted)
 
-### Instale o cucumber no projeto
-
-```bash
-npm install --save-dev @cucumber/cucumber
+O arquivo wdio.confi.js
+**obs**: Nesse arquivo será possível adicionar as configurações para o projeto, como serviços, status report, capabilities para o devices ou devices. caso queira adicionar mais de um device para fazer teste paralelos adicionar em maxInstances, e adicinar as capabilities.
 ```
-O `package.json` tem que estar assim
-```
-{
-    "name": "hellocucumber",
-    "version": "1.0.0",
-    "description": "",
-    "main": "index.js",
-    "scripts": {
-        "test": "cucumber-js"
-    },
-    "keywords": [],
-    "author": "",
-    "license": "ISC",
-    "devDependencies": {
-        "@cucumber/cucumber": "^11.1.1"
-    }
-}
-```
-### Crie uma infra para o projeto.
-A pasta features ficara tanto os arquivos do cucumber.feature assim como os scripts em js em step_definitions.
-
-```bash
-mkdir features
-mkdir features/step_definitions
-```
-
-Crie um arquivo `stepdefs.js`(ou qualquer nome que deseja, de preferencia com o mesmo nome do teste) dentro do step_definitions
-```
-const assert = require('assert');
-const { Given, When, Then } = require('@cucumber/cucumber');
-```
-Crie um arquivo `stepdefs.feature`(ou qualquer nome que deseja, de preferência com o mesmo nome do teste) dentro do step_definitions e adicione o Gherkin abaixo.
-```bash
-Feature: Visualizar bateria
-    Como usuário do sistema android
-    Eu quero acessar a opção da bateria
-    Para que eu possa visualizar o desempenho da bateria
-
-    @positive
-    Scenario: Exibir bateria do android
-        When Clicar na opção settings
-        And Clicar na opção bateria
-        Then Deve visualizar a opção da bateria
-```
-
-Crie uma `cucumber.json` na raiz do projeto, na mesma hierarquia do `package.json`
-```bash
-{
-  "default": {
-    "formatOptions": {
-      "snippetInterface": "synchronous"
-    },
-    "paths": [
-      "e2e/features/"
+export const config = {
+    //
+    // ====================
+    // Runner Configuration
+    // ====================
+    // WebdriverIO supports running e2e tests as well as unit and component tests.
+    runner: 'local',
+    port: adicione a sua porta,
+    //
+    // ==================
+    // Specify Test Files
+    // ==================
+    // Define which test specs should run. The pattern is relative to the directory
+    // of the configuration file being run.
+    //
+    // The specs are defined as an array of spec files (optionally using wildcards
+    // that will be expanded). The test for each spec file will be run in a separate
+    // worker process. In order to have a group of spec files run in the same worker
+    // process simply enclose them in an array within the specs array.
+    //
+    // The path of the spec files will be resolved relative from the directory of
+    // of the config file unless it's absolute.
+    //
+    specs: [
+        './features/**/*.feature'
     ],
-    "require": [
-      "e2e/hooks/*.js",
-      "e2e/features/steps/*.js"
+    // Patterns to exclude.
+    exclude: [
+        // 'path/to/excluded/files'
     ],
-    "format": [
-      "json:e2e/report/cucumber_report.json"
-    ]
-  }
-}
-```
+    //
+    // ============
+    // Capabilities
+    // ============
+    // Define your capabilities here. WebdriverIO can run multiple capabilities at the same
+    // time. Depending on the number of capabilities, WebdriverIO launches several test
+    // sessions. Within your capabilities you can overwrite the spec and exclude options in
+    // order to group specific specs to a specific capability.
+    //
+    // First, you can define how many instances should be started at the same time. Let's
+    // say you have 3 different capabilities (Chrome, Firefox, and Safari) and you have
+    // set maxInstances to 1; wdio will spawn 3 processes. Therefore, if you have 10 spec
+    // files and you set maxInstances to 10, all spec files will get tested at the same time
+    // and 30 processes will get spawned. The property handles how many capabilities
+    // from the same test should run tests.
+    //
+    maxInstances: 2,
+    //
+    // If you have trouble getting all important capabilities together, check out the
+    // Sauce Labs platform configurator - a great tool to configure your capabilities:
+    // https://saucelabs.com/platform/platform-configurator
+    //
+    capabilities: [{
+        // capabilities for local Appium web tests on an Android Emulator
+        platformName: 'Android',
+        'appium:deviceName': 'Android GoogleAPI Emulator',
+        'appium:platformVersion': '12.0',
+        'appium:automationName': 'UiAutomator2'
+    }],
 
-Verifique o teste
-```bash
-npm test
-```
-No console deve apresentar algo como :
-```
-? When Clicar na opção settings
-       Undefined. Implement with the following snippet:
+    //
+    // ===================
+    // Test Configurations
+    // ===================
+    // Define all options that are relevant for the WebdriverIO instance here
+    //
+    // Level of logging verbosity: trace | debug | info | warn | error | silent
+    logLevel: 'info',
+    //
+    // Set specific log levels per logger
+    // loggers:
+    // - webdriver, webdriverio
+    // - @wdio/browserstack-service, @wdio/lighthouse-service, @wdio/sauce-service
+    // - @wdio/mocha-framework, @wdio/jasmine-framework
+    // - @wdio/local-runner
+    // - @wdio/sumologic-reporter
+    // - @wdio/cli, @wdio/config, @wdio/utils
+    // Level of logging verbosity: trace | debug | info | warn | error | silent
+    // logLevels: {
+    //     webdriver: 'info',
+    //     '@wdio/appium-service': 'info'
+    // },
+    //
+    // If you only want to run your tests until a specific amount of tests have failed use
+    // bail (default is 0 - don't bail, run all tests).
+    bail: 0,
+    //
+    // Set a base URL in order to shorten url command calls. If your `url` parameter starts
+    // with `/`, the base url gets prepended, not including the path portion of your baseUrl.
+    // If your `url` parameter starts without a scheme or `/` (like `some/path`), the base url
+    // gets prepended directly.
+    // baseUrl: 'http://localhost:8080',
+    //
+    // Default timeout for all waitFor* commands.
+    waitforTimeout: 10000,
+    //
+    // Default timeout in milliseconds for request
+    // if browser driver or grid doesn't send response
+    connectionRetryTimeout: 120000,
+    //
+    // Default request retries count
+    connectionRetryCount: 3,
+    //
+    // Test runner services
+    // Services take over a specific job you don't want to take care of. They enhance
+    // your test setup with almost no effort. Unlike plugins, they don't add new
+    // commands. Instead, they hook themselves up into the test process.
+    services: ['appium'],
+    path: '/wd/hub',
+    // Framework you want to run your specs with.
+    // The following are supported: Mocha, Jasmine, and Cucumber
+    // see also: https://webdriver.io/docs/frameworks
+    //
+    // Make sure you have the wdio adapter package for the specific framework installed
+    // before running any tests.
+    framework: 'cucumber',
 
-         When('Clicar na opção settings', function () {
-           // Write code here that turns the phrase above into concrete actions
-           return 'pending';
-         });
+    //
+    // The number of times to retry the entire specfile when it fails as a whole
+    // specFileRetries: 1,
+    //
+    // Delay in seconds between the spec file retry attempts
+    // specFileRetriesDelay: 0,
+    //
+    // Whether or not retried spec files should be retried immediately or deferred to the end of the queue
+    // specFileRetriesDeferred: false,
+    //
+    // Test reporter for stdout.
+    // The only one supported by default is 'dot'
+    // see also: https://webdriver.io/docs/dot-reporter
+    reporters: ['spec', ['allure', { outputDir: 'allure-results' }], 'video', 'cucumberjs-json'],
 
-   ? And Clicar na opção bateria
-       Undefined. Implement with the following snippet:
-
-         When('Clicar na opção bateria', function () {
-           // Write code here that turns the phrase above into concrete actions
-           return 'pending';
-         });
-
-   ? Then Deve visualizar a opção da bateria
-       Undefined. Implement with the following snippet:
-
-         Then('Deve visualizar a opção da bateria', function () {
-           // Write code here that turns the phrase above into concrete actions
-           return 'pending';
-         });
-```
-Isso significa que o arquivo `stepdefs.js` não possui as funções acima, portanto, copia as funções  e adicione ao aquivo, ficando algo como:
-```
-const { When, Then } = require('@cucumber/cucumber');
-
-When('Clicar na opção settings', async function () {
-    const settings = await this.driver.$('//*[@text="Settings"]');
-    await settings.click();
-});
-
-When('Clicar na opção bateria', async function () {
-    const batteryItem = await this.driver.$('//*[@text="Battery"]');
-    await batteryItem.click();
-    await batteryItem.takeScreenshot();
-});
-
-Then('Deve visualizar a opção da bateria', async function () {
-    const title = await this.driver.getElementText("Battery");
-    console.log(title);
-});
-```
-
-
-### Conectar a um emulador
-**Obs 1**: Para esse projeto eu criei hooks e support para iniciar o emulador e carregar todos os drivers antes dos testes para conseguir capturar os elementos do xml da app.\
-**Obs 2**: Se desejar saber quais aparelhos que estão conectados consulte [AQUI](https://developer.android.com/tools/adb), será necessário adicionar um aparelho as caps.\
-**Obs 3**: Pode ser configurado para carregar vários aparelhos, no meu caso coloquei só Android no momento.
-
-```bash
-adb devices
-```
-na hook.js adicione as configurações para acessar o aparelho
-```hook.js
-const { Before, After, setDefaultTimeout} = require("@cucumber/cucumber");
-const { remote} = require("webdriverio");
-
-setDefaultTimeout(60000);
-
-Before(async function () {
-    const options = {
-        protocol: "http",
-        hostname: process.env.APPIUM_HOST || "localhost",
-        port: parseInt(process.env.APPIUM_PORT, 10) || 4723,
-        path: "/",
-        logLevel: 'info',
-        capabilities: {
-            platformName: 'Android',
-            "appium:automationName": "UiAutomator2",
-            "appium:deviceName": "Android",
-            "appium:udid": "emulator-5554",
-            "appium:newCommandTimeout": 90,
-            "appium:connectHardwareKeyboard": true,
-            "appium:enablePerformanceLogging": true,
-            "appium:ensureWebviewsHavePages": true,
-            "appium:nativeWebScreenshot": true
-        }
-    };
-
-    this.driver = await remote(options);
-    
-});
-
-After(async function () {
-    if (this.elements) {
-        await this.driver.deleteSession();
-    }
-});
-```
-
-e para o this.driver conseguir carregar corretamente o webdriverIO de remote eu criei um arquivo global para o driver dentro de support, esse arquivo tem que ser em ts para poder carregar a interface de IWorld e adicionar o driver globalmente para poder ser carregado em qualquer arquivo do projeto
-```global.d.ts
-import { Browser } from "webdriverio";
-
-declare module "@cucumber/cucumber" {
-    interface IWorld {
-        driver: Browser;
-    }
-}
-```
-## Status Reports
-### cucumber-html-reporter
-
-Instale o cucumber report com o comando:
-```bash
-npm install cucumber-html-reporter --save-dev
-```
-
-Crie o arquivo ``register-report.js``, esse arquivo irá converter os resultados do ``cucumber_report.json`` em html, gerando status report dos testes em formato de gráficos. 
-**Obs**: Em ``jsonFile`` informe o path do arquivo json gerado pelo cucumber. e o output o mesmo path para gerar o html.
-
-No cucumber.json adicione o seguinte path:
-
-```cucumber.json
-"format": [
-  "json:e2e/report/cucumber_report.json"
-]
-```
-```register-report.js
-const { generate } = require("cucumber-html-reporter");
-
-var options = {
-    theme: 'bootstrap',
-    jsonFile: 'e2e/report/cucumber_report.json',
-    output: 'e2e/report/cucumber_report.html',
-    reportSuiteAsScenarios: true,
-    scenarioTimestamp: true,
-    launchReport: true,
-    metadata: {
-        "App Version": "0.3.2",
-        "Test Environment": "STAGING",
-        "Browser": "Chrome  54.0.2840.98",
-        "Platform": "Windows 10",
-        "Parallel": "Scenarios",
-        "Executed": "Remote"
+    // If you are using Cucumber you need to specify the location of your step definitions.
+    cucumberOpts: {
+        // <string[]> (file/dir) require files before executing features
+        require: ['./features/step-definitions/steps.js'],
+        // <boolean> show full backtrace for errors
+        backtrace: false,
+        // <string[]> ("extension:module") require files with the given EXTENSION after requiring MODULE (repeatable)
+        requireModule: [],
+        // <boolean> invoke formatters without executing steps
+        dryRun: false,
+        // <boolean> abort the run on first failure
+        failFast: false,
+        // <string[]> Only execute the scenarios with name matching the expression (repeatable).
+        name: [],
+        // <boolean> hide step definition snippets for pending steps
+        snippets: true,
+        // <boolean> hide source uris
+        source: true,
+        // <boolean> fail if there are any undefined or pending steps
+        strict: false,
+        // <string> (expression) only execute the features or scenarios with tags matching the expression
+        tagExpression: '',
+        // <number> timeout for step definitions
+        timeout: 60000,
+        // <boolean> Enable this config to treat undefined definitions as warnings.
+        ignoreUndefinedDefinitions: false
     },
-    failedSummaryReport: true,
-};
 
-generate(options);
-```
 
-Agora para gerar o report é necessário executar o seguinte comando com o endereço do register-report.js:
+    //
+    // =====
+    // Hooks
+    // =====
+    // WebdriverIO provides several hooks you can use to interfere with the test process in order to enhance
+    // it and to build services around it. You can either apply a single function or an array of
+    // methods to it. If one of them returns with a promise, WebdriverIO will wait until that promise got
+    // resolved to continue.
+    /**
+     * Gets executed once before all workers get launched.
+     * @param {object} config wdio configuration object
+     * @param {Array.<Object>} capabilities list of capabilities details
+     */
+    // onPrepare: function (config, capabilities) {
+    // },
+    /**
+     * Gets executed before a worker process is spawned and can be used to initialize specific service
+     * for that worker as well as modify runtime environments in an async fashion.
+     * @param  {string} cid      capability id (e.g 0-0)
+     * @param  {object} caps     object containing capabilities for session that will be spawn in the worker
+     * @param  {object} specs    specs to be run in the worker process
+     * @param  {object} args     object that will be merged with the main configuration once worker is initialized
+     * @param  {object} execArgv list of string arguments passed to the worker process
+     */
+    // onWorkerStart: function (cid, caps, specs, args, execArgv) {
+    // },
+    /**
+     * Gets executed just after a worker process has exited.
+     * @param  {string} cid      capability id (e.g 0-0)
+     * @param  {number} exitCode 0 - success, 1 - fail
+     * @param  {object} specs    specs to be run in the worker process
+     * @param  {number} retries  number of retries used
+     */
+    // onWorkerEnd: function (cid, exitCode, specs, retries) {
+    // },
+    /**
+     * Gets executed just before initialising the webdriver session and test framework. It allows you
+     * to manipulate configurations depending on the capability or spec.
+     * @param {object} config wdio configuration object
+     * @param {Array.<Object>} capabilities list of capabilities details
+     * @param {Array.<String>} specs List of spec file paths that are to be run
+     * @param {string} cid worker id (e.g. 0-0)
+     */
+    // beforeSession: function (config, capabilities, specs, cid) {
+    // },
+    /**
+     * Gets executed before test execution begins. At this point you can access to all global
+     * variables like `browser`. It is the perfect place to define custom commands.
+     * @param {Array.<Object>} capabilities list of capabilities details
+     * @param {Array.<String>} specs        List of spec file paths that are to be run
+     * @param {object}         browser      instance of created browser/device session
+     */
+    // before: function (capabilities, specs) {
+    // },
+    /**
+     * Runs before a WebdriverIO command gets executed.
+     * @param {string} commandName hook command name
+     * @param {Array} args arguments that command would receive
+     */
+    // beforeCommand: function (commandName, args) {
+    // },
+    /**
+     * Cucumber Hooks
+     *
+     * Runs before a Cucumber Feature.
+     * @param {string}                   uri      path to feature file
+     * @param {GherkinDocument.IFeature} feature  Cucumber feature object
+     */
+    // beforeFeature: function (uri, feature) {
+    // },
+    /**
+     *
+     * Runs before a Cucumber Scenario.
+     * @param {ITestCaseHookParameter} world    world object containing information on pickle and test step
+     * @param {object}                 context  Cucumber World object
+     */
+    // beforeScenario: function (world, context) {
+    // },
+    /**
+     *
+     * Runs before a Cucumber Step.
+     * @param {Pickle.IPickleStep} step     step data
+     * @param {IPickle}            scenario scenario pickle
+     * @param {object}             context  Cucumber World object
+     */
+    // beforeStep: function (step, scenario, context) {
+    // },
+    /**
+     *
+     * Runs after a Cucumber Step.
+     * @param {Pickle.IPickleStep} step             step data
+     * @param {IPickle}            scenario         scenario pickle
+     * @param {object}             result           results object containing scenario results
+     * @param {boolean}            result.passed    true if scenario has passed
+     * @param {string}             result.error     error stack if scenario failed
+     * @param {number}             result.duration  duration of scenario in milliseconds
+     * @param {object}             context          Cucumber World object
+     */
+    // afterStep: function (step, scenario, result, context) {
+    // },
+    /**
+     *
+     * Runs after a Cucumber Scenario.
+     * @param {ITestCaseHookParameter} world            world object containing information on pickle and test step
+     * @param {object}                 result           results object containing scenario results
+     * @param {boolean}                result.passed    true if scenario has passed
+     * @param {string}                 result.error     error stack if scenario failed
+     * @param {number}                 result.duration  duration of scenario in milliseconds
+     * @param {object}                 context          Cucumber World object
+     */
+    // afterScenario: function (world, result, context) {
+    // },
+    /**
+     *
+     * Runs after a Cucumber Feature.
+     * @param {string}                   uri      path to feature file
+     * @param {GherkinDocument.IFeature} feature  Cucumber feature object
+     */
+    // afterFeature: function (uri, feature) {
+    // },
 
-```
-node e2e/support/register-report.js
-```
-ou adicione ao ``package.json`` aos demais comandos em scripts ficando algo como :
-
-```package.json
-"scripts": {
-    "start": "cucumber-js",
-    "report": "node e2e/support/register-report.js",
-    "test": "npm run start && npm run report"
+    /**
+     * Runs after a WebdriverIO command gets executed
+     * @param {string} commandName hook command name
+     * @param {Array} args arguments that command would receive
+     * @param {number} result 0 - command success, 1 - command error
+     * @param {object} error error object if any
+     */
+    // afterCommand: function (commandName, args, result, error) {
+    // },
+    /**
+     * Gets executed after all tests are done. You still have access to all global variables from
+     * the test.
+     * @param {number} result 0 - test pass, 1 - test fail
+     * @param {Array.<Object>} capabilities list of capabilities details
+     * @param {Array.<String>} specs List of spec file paths that ran
+     */
+    // after: function (result, capabilities, specs) {
+    // },
+    /**
+     * Gets executed right after terminating the webdriver session.
+     * @param {object} config wdio configuration object
+     * @param {Array.<Object>} capabilities list of capabilities details
+     * @param {Array.<String>} specs List of spec file paths that ran
+     */
+    // afterSession: function (config, capabilities, specs) {
+    // },
+    /**
+     * Gets executed after all workers got shut down and the process is about to exit. An error
+     * thrown in the onComplete hook will result in the test run failing.
+     * @param {object} exitCode 0 - success, 1 - fail
+     * @param {object} config wdio configuration object
+     * @param {Array.<Object>} capabilities list of capabilities details
+     * @param {<Object>} results object containing test results
+     */
+    // onComplete: function(exitCode, config, capabilities, results) {
+    // },
+    /**
+    * Gets executed when a refresh happens.
+    * @param {string} oldSessionId session ID of the old session
+    * @param {string} newSessionId session ID of the new session
+    */
+    // onReload: function(oldSessionId, newSessionId) {
+    // }
+    /**
+    * Hook that gets executed before a WebdriverIO assertion happens.
+    * @param {object} params information about the assertion to be executed
+    */
+    // beforeAssertion: function(params) {
+    // }
+    /**
+    * Hook that gets executed after a WebdriverIO assertion happened.
+    * @param {object} params information about the assertion that was executed, including its results
+    */
+    // afterAssertion: function(params) {
+    // }
 }
 ```
-
-
-
-
 
 
 
