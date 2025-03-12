@@ -6,7 +6,7 @@ Este repositório contém um conjunto de testes automatizados para aplicações 
 ## Sumário
 [Requisitos](#requisitos)\
 [Estrutura do Projeto](#estrutura-do-projeto)\
-[Instalação](#instalação)\
+[Instalação](#instalação)
 
 
 ## Introdução.
@@ -14,6 +14,8 @@ Este repositório contém um conjunto de testes automatizados para aplicações 
 [Gherkin](https://docs.behat.org/en/v2.5/guides/1.gherkin.html)\
 [wdio](https://webdriver.io/docs/gettingstarted)\
 [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript)\
+[Appium inspector](https://github.com/appium/appium-inspector)\
+[Appium quickstart](https://appium.io/docs/en/latest/quickstart/install/)
 
 ## Requisitos
 
@@ -67,7 +69,8 @@ Instale as dependências do projeto conforme a necessidade, para utilizar o cucu
 Mais informações em [wdio](https://webdriver.io/docs/gettingstarted)
 
 O arquivo wdio.confi.js
-**obs**: Nesse arquivo será possível adicionar as configurações para o projeto, como serviços, status report, capabilities para o devices ou devices. caso queira adicionar mais de um device para fazer teste paralelos adicionar em maxInstances, e adicinar as capabilities.
+**obs 1**: Nesse arquivo será possível adicionar as configurações para o projeto, como serviços, status report, capabilities para o devices ou devices. caso queira adicionar mais de um device para fazer teste paralelos adicionar em maxInstances, e adicinar as capabilities.
+**obs 2**: Para inspecionar os elementos do xml instale o appium localmente e baixe o appium inspector.
 ```
 export const config = {
     //
